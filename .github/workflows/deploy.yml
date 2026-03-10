@@ -33,7 +33,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.12.4 # あなたが使っているpnpmのバージョンに合わせてください
+          version: 10.26.1 # あなたが使っているpnpmのバージョンに合わせてください
 
       # ステップ3: Node.jsの環境をセットアップする
       - name: Setup Node.js
