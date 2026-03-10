@@ -25,6 +25,8 @@ export class LuaPixelEngine implements PixelEngine {
             // ユーザーコードをラップして、各ピクセルごとに実行できる関数を定義する
             // 戻り値がない場合は1(白)をデフォルトとする
             const wrappedCode = `
+local abs = math.abs
+
 function _evaluate_pixel(x, y, width, height)
 ${code}
 end
