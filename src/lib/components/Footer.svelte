@@ -2,11 +2,22 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Globe } from '@lucide/svelte';
-	import { setLocale, getLocale } from '$lib/paraglide/runtime.js';
+	import { base } from '$app/paths';
+	import { setLocale, getLocale, localizeHref } from '$lib/paraglide/runtime.js';
 
 	function toggleLanguage() {
 		const current = getLocale();
-		setLocale(current === 'ja' ? 'en' : 'ja');
+		const nextLocale = current === 'ja' ? 'en' : 'ja';
+
+		// setLocale(..., { reload: false }) で内部状態とクッキーを更新し、
+		// ベースパスを考慮したパスへ手動で遷移する
+		setLocale(nextLocale, { reload: false });
+
+		const pathWithoutBase = window.location.pathname.startsWith(base)
+			? window.location.pathname.slice(base.length) || '/'
+			: window.location.pathname;
+
+		window.location.href = base + localizeHref(pathWithoutBase, { locale: nextLocale });
 	}
 </script>
 
