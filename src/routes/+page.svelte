@@ -57,9 +57,15 @@ return 0`);
 		if (!engine) return;
 		isRunning = true;
 		editorError = null;
+
+		// 最小表示時間を確保するためのタイマー
+		const minWait = new Promise((resolve) => setTimeout(resolve, 400));
+
 		try {
 			await engine.compile(currentCode);
 			grid = await engine.evaluate();
+			// コンパイルと評価が終わった後、最小待機時間が経過するまで待つ
+			await minWait;
 		} catch (error: unknown) {
 			const errorMessage = error instanceof Error ? error.message : String(error);
 			console.error('Execution error:', errorMessage);
@@ -85,6 +91,6 @@ return 0`);
 		<Editor bind:code error={editorError} />
 
 		<!-- 右カラム: プレビューエリア -->
-		<Preview {grid} {isRunning} />
+		<Preview {grid} {isRunning} {code} />
 	</div>
 </main>

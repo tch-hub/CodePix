@@ -7,9 +7,14 @@
 	const axisLabels = Array.from({ length: GRID_SIZE }, (_, i) => i - GRID_RADIUS);
 	const yAxisLabels = [...axisLabels].reverse();
 
-	let { grid = [], isRunning = false } = $props<{
+	let {
+		grid = [],
+		isRunning = false,
+		code = ''
+	} = $props<{
 		grid?: number[][];
 		isRunning?: boolean;
+		code?: string;
 	}>();
 </script>
 
@@ -76,26 +81,19 @@
 	<div class="flex items-center justify-between px-2 pt-2">
 		<div class="flex space-x-5">
 			<div class="flex items-center gap-2 text-sm font-medium">
-				<span class="text-muted-foreground">{m.match_rate_label()}</span>
-				<span
-					class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs tracking-wider text-foreground"
-					>---%</span
-				>
-			</div>
-			<div class="flex items-center gap-2 text-sm font-medium">
 				<span class="text-muted-foreground">{m.code_length_label()}</span>
 				<span
 					class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs tracking-wider text-foreground"
-					>---文字</span
+					>{code.length}文字</span
 				>
 			</div>
 		</div>
 		<div class="flex items-center space-x-2">
 			<span class="relative flex h-2.5 w-2.5">
 				<span
-					class="absolute inline-flex h-full w-full {isRunning
+					class="absolute inline-flex h-full w-full rounded-full {isRunning
 						? 'animate-ping bg-sky-400'
-						: 'animate-ping bg-emerald-400'} rounded-full opacity-75"
+						: ''} opacity-75"
 				></span>
 				<span
 					class="relative inline-flex h-2.5 w-2.5 rounded-full {isRunning

@@ -31,7 +31,7 @@
 		<div
 			class="flex h-8 w-8 items-center justify-center rounded bg-primary text-primary-foreground"
 		>
-			CP
+			KT
 		</div>
 		KopiaTile
 	</div>
