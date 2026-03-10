@@ -126,27 +126,6 @@
 		<!-- Monaco DOM Container -->
 		<div bind:this={editorContainer} class="w-full flex-1 bg-[#1e1e1e]"></div>
 	</div>
-
-	<!-- Dummy error / console output text area -->
-	<div
-		class="flex h-28 w-full flex-col overflow-y-auto rounded-lg border bg-[#1e1e1e] p-3 font-mono text-sm text-[#f87171] shadow-sm"
-	>
-		<div class="mb-2 flex items-center justify-between">
-			<span class="font-sans text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-				{m.terminal_title()}
-			</span>
-		</div>
-		<div class="flex items-start opacity-70">
-			<span class="mr-3 font-bold text-muted-foreground">&gt;</span>
-			<span class="font-sans text-muted-foreground italic">
-				{#if error}
-					{m.terminal_error_line({ line: error.line, message: error.message })}
-				{:else}
-					{m.terminal_no_errors()}
-				{/if}
-			</span>
-		</div>
-	</div>
 </div>
 
 <style>

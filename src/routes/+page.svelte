@@ -37,12 +37,15 @@ return 0`);
 			return m.lua_error_expected_closing({
 				expected: m3[1],
 				token: m3[2],
-				line: Math.max(1, parseInt(m3[3], 10) - 2),
+				line: Math.max(1, parseInt(m3[3], 10) - 9),
 				symbol: m3[4]
 			});
 
 		const m2 = msg.match(/'(.*)' expected near '(.*)'/);
 		if (m2) return m.lua_error_expected({ expected: m2[1], symbol: m2[2] });
+
+		const m5 = msg.match(/<name> expected near '(.*)'/);
+		if (m5) return m.lua_error_name_expected({ symbol: m5[1] });
 
 		const m1 = msg.match(/unexpected symbol near '(.*)'/);
 		if (m1) return m.lua_error_unexpected_symbol({ symbol: m1[1] });
@@ -72,7 +75,7 @@ return 0`);
 			const msg = String(errorMessage);
 			const match = msg.match(/\[string "..."\]:(\d+):(.*)/);
 			if (match) {
-				const line = parseInt(match[1], 10) - 2;
+				const line = parseInt(match[1], 10) - 9;
 				const pureMsg = match[2].trim();
 				editorError = { line: Math.max(1, line), message: translateLuaError(pureMsg) };
 			} else {
@@ -91,6 +94,6 @@ return 0`);
 		<Editor bind:code error={editorError} />
 
 		<!-- 右カラム: プレビューエリア -->
-		<Preview {grid} {isRunning} {code} />
+		<Preview {grid} {isRunning} {code} error={editorError} />
 	</div>
 </main>

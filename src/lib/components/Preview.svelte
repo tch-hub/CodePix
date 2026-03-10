@@ -7,14 +7,11 @@
 	const axisLabels = Array.from({ length: GRID_SIZE }, (_, i) => i - GRID_RADIUS);
 	const yAxisLabels = [...axisLabels].reverse();
 
-	let {
-		grid = [],
-		isRunning = false,
-		code = ''
-	} = $props<{
+	let { grid = [], error = null } = $props<{
 		grid?: number[][];
 		isRunning?: boolean;
 		code?: string;
+		error?: { line: number; message: string } | null;
 	}>();
 </script>
 
@@ -48,6 +45,17 @@
 			</div>
 
 			<div class="relative flex h-[320px] w-[320px] items-center justify-center">
+				{#if error}
+					<div
+						class="absolute inset-0 z-30 flex flex-col items-center justify-center rounded-lg border border-destructive bg-background/80 p-4 text-center backdrop-blur-sm"
+					>
+						<div class="flex flex-col items-center gap-2 font-mono text-sm text-destructive">
+							<span class="font-bold">Error</span>
+							<span>{m.terminal_error_line({ line: error.line, message: error.message })}</span>
+						</div>
+					</div>
+				{/if}
+
 				{#if grid.length > 0}
 					<div
 						class="pointer-events-none z-20 grid h-full w-full"
@@ -59,10 +67,10 @@
 									style="background-color: {colorIndex === 0
 										? 'transparent'
 										: `var(--kopiatile-${colorIndex})`};"
-									class="flex h-full w-full items-center justify-center transition-all duration-300 select-none {colorIndex ===
+									class="flex h-full w-full items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] select-none {colorIndex ===
 									0
-										? ''
-										: 'z-10 scale-[0.92] rounded-md border border-black/10 shadow-[inset_0_2px_4px_rgba(255,255,255,0.5),inset_0_-3px_4_rgba(0,0,0,0.3),0_2px_5px_rgba(0,0,0,0.4)]'}"
+										? 'scale-50 opacity-0'
+										: 'z-10 scale-[0.92] rounded-md border border-black/20 opacity-100 shadow-[inset_0_2px_4px_rgba(255,255,255,0.6),inset_0_-3px_4px_rgba(0,0,0,0.3),0_4px_8px_rgba(0,0,0,0.4)]'}"
 								></div>
 							{/each}
 						{/each}
@@ -77,36 +85,4 @@
 			</div>
 		</div>
 	</Card>
-
-	<div class="flex items-center justify-between px-2 pt-2">
-		<div class="flex space-x-5">
-			<div class="flex items-center gap-2 text-sm font-medium">
-				<span class="text-muted-foreground">{m.code_length_label()}</span>
-				<span
-					class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs tracking-wider text-foreground"
-					>{code.length}文字</span
-				>
-			</div>
-		</div>
-		<div class="flex items-center space-x-2">
-			<span class="relative flex h-2.5 w-2.5">
-				<span
-					class="absolute inline-flex h-full w-full rounded-full {isRunning
-						? 'animate-ping bg-sky-400'
-						: ''} opacity-75"
-				></span>
-				<span
-					class="relative inline-flex h-2.5 w-2.5 rounded-full {isRunning
-						? 'bg-sky-500'
-						: 'bg-emerald-500'}"
-				></span>
-			</span>
-			<span
-				class="text-xs font-semibold tracking-widest uppercase {isRunning
-					? 'text-sky-600 dark:text-sky-400'
-					: 'text-emerald-600 dark:text-emerald-400'}"
-				>{isRunning ? 'Running' : m.status_idle()}</span
-			>
-		</div>
-	</div>
 </div>

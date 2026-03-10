@@ -22,5 +22,6 @@
 	"error_page_message_404": "お探しのページは存在しないか、移動した可能性があります。",
 	"error_page_title_generic": "エラーが発生しました",
 	"error_page_message_generic": "申し訳ありません。予期しないエラーが発生しました。",
-	"error_page_back_home": "ホームに戻る"
+	"error_page_back_home": "ホームに戻る",
+	"lua_error_name_expected": "{symbol} の近くに名前（変数など）が必要です"
 }
