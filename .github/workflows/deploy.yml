@@ -33,13 +33,13 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.26.1 # あなたが使っているpnpmのバージョンに合わせてください
+          version: 10
 
       # ステップ3: Node.jsの環境をセットアップする
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24.12.0' # あなたが使っているNode.jsのバージョン
+          node-version: '24'
           cache: 'pnpm' # pnpmのキャッシュを有効にする
 
       # ステップ4: 依存関係をインストールする
