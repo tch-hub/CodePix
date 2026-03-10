@@ -10,10 +10,14 @@
 	let { children } = $props();
 
 	function getLocalizedPath(locale: string) {
-		const pathWithoutBase = page.url.pathname.startsWith(base)
-			? page.url.pathname.slice(base.length) || '/'
-			: page.url.pathname;
-		return base + localizeHref(pathWithoutBase, { locale });
+		const url = new URL(page.url.href);
+		if (base && url.pathname.startsWith(base)) {
+			url.pathname = url.pathname.slice(base.length) || '/';
+		}
+		const localizedPath = localizeHref(url.pathname, { locale });
+		const b = base.endsWith('/') ? base.slice(0, -1) : base;
+		const p = localizedPath.startsWith('/') ? localizedPath : '/' + localizedPath;
+		return b + p;
 	}
 </script>
 

@@ -3,13 +3,10 @@ import { base } from '$app/paths';
 
 export const reroute = (event) => {
 	const url = new URL(event.url);
+	// ベースパスがある場合はそれを取り除く
 	if (base && url.pathname.startsWith(base)) {
-		// ベースパスを除去してからデlocalize
-		const pathWithoutBase = url.pathname.slice(base.length) || '/';
-		url.pathname = pathWithoutBase;
-		const deLocalized = deLocalizeUrl(url);
-		// デlocalizeされたパスにベースパスを戻す
-		return base + (deLocalized.pathname === '/' ? '' : deLocalized.pathname);
+		url.pathname = url.pathname.slice(base.length) || '/';
 	}
-	return deLocalizeUrl(event.url).pathname;
+	// Paraglide でロケールを除去したパス（ベースなし）を返す
+	return deLocalizeUrl(url).pathname;
 };

@@ -17,7 +17,10 @@
 			? window.location.pathname.slice(base.length) || '/'
 			: window.location.pathname;
 
-		window.location.href = base + localizeHref(pathWithoutBase, { locale: nextLocale });
+		const localizedPath = localizeHref(pathWithoutBase, { locale: nextLocale });
+		const b = base.endsWith('/') ? base.slice(0, -1) : base;
+		const p = localizedPath.startsWith('/') ? localizedPath : '/' + localizedPath;
+		window.location.href = b + p;
 	}
 </script>
 
