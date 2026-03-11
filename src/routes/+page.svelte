@@ -104,7 +104,7 @@ return 0`);
 	</div>
 
 	<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-		<!-- 左カラム: コードエディタエリア -->
+		<!-- 左カラム: エディタエリア -->
 		<Editor bind:code error={editorError} />
 
 		<!-- 右カラム: プレビューエリア -->

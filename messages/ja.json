@@ -2,7 +2,7 @@
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"hello_world": "こんにちは, {name} from ja!",
 	"app_name": "KopiaTile",
-	"code_editor_title": "コードエディタ",
+	"code_editor_title": "エディタ",
 	"preview_title": "プレビュー",
 	"match_rate_label": "一致率:",
 	"code_length_label": "コード長:",
