@@ -16,6 +16,8 @@ jobs:
   build-and-deploy:
     # 実行環境を指定
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     # このジョブが必要とする権限を設定
     permissions:
