@@ -1,29 +1,8 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { Sun, Moon, ListTodo, FileText } from '@lucide/svelte';
-	import { onMount } from 'svelte';
+	import { Sun, Moon, ListTodo, FileText, Zap, ZapOff, Play, Pause } from '@lucide/svelte';
 	import { uiState } from '$lib/states.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-
-	let isDarkMode = $state(false);
-
-	onMount(() => {
-		// 初期状態として現在のHTMLクラスを確認
-		if (typeof document !== 'undefined') {
-			isDarkMode = document.documentElement.classList.contains('dark');
-		}
-	});
-
-	function toggleTheme() {
-		isDarkMode = !isDarkMode;
-		if (typeof document !== 'undefined') {
-			if (isDarkMode) {
-				document.documentElement.classList.add('dark');
-			} else {
-				document.documentElement.classList.remove('dark');
-			}
-		}
-	}
 </script>
 
 <header
@@ -57,8 +36,36 @@
 			<span class="hidden sm:inline">{m.documentation()}</span>
 		</Button>
 		<div class="mx-2 h-4 w-px bg-border"></div>
-		<Button variant="ghost" size="icon" onclick={toggleTheme}>
-			{#if isDarkMode}
+		<Button
+			variant="ghost"
+			size="icon"
+			onclick={() => (uiState.isLowPerformanceMode = !uiState.isLowPerformanceMode)}
+			class={uiState.isLowPerformanceMode ? 'text-yellow-500' : 'text-muted-foreground'}
+			title={m.low_performance_mode()}
+		>
+			{#if uiState.isLowPerformanceMode}
+				<Zap class="h-5 w-5 fill-current" />
+			{:else}
+				<ZapOff class="h-5 w-5" />
+			{/if}
+			<span class="sr-only">{m.low_performance_mode()}</span>
+		</Button>
+		<Button
+			variant="ghost"
+			size="icon"
+			onclick={() => (uiState.isAutoRunEnabled = !uiState.isAutoRunEnabled)}
+			class={uiState.isAutoRunEnabled ? 'text-primary' : 'text-muted-foreground'}
+			title={m.auto_run_label()}
+		>
+			{#if uiState.isAutoRunEnabled}
+				<Play class="h-5 w-5 fill-current" />
+			{:else}
+				<Pause class="h-5 w-5" />
+			{/if}
+			<span class="sr-only">{m.auto_run_label()}</span>
+		</Button>
+		<Button variant="ghost" size="icon" onclick={() => uiState.toggleDarkMode()}>
+			{#if uiState.isDarkMode}
 				<Moon class="h-5 w-5 text-muted-foreground" />
 			{:else}
 				<Sun class="h-5 w-5 text-muted-foreground" />

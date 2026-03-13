@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy, untrack } from 'svelte';
+	import { uiState } from '$lib/states.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { Code } from '@lucide/svelte';
 	import type * as Monaco from 'monaco-editor';
@@ -214,6 +215,18 @@
 				isSettingValue = false;
 			}
 		});
+	});
+
+	$effect(() => {
+		if (editor) {
+			editor.updateOptions({
+				cursorBlinking: uiState.isLowPerformanceMode ? 'solid' : 'blink',
+				renderWhitespace: uiState.isLowPerformanceMode ? 'none' : 'selection',
+				guides: {
+					indentation: !uiState.isLowPerformanceMode
+				}
+			});
+		}
 	});
 
 	onDestroy(() => {

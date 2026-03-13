@@ -49,5 +49,7 @@
 	"problem_10_desc": "Make pixels with a distance squared (x*x + y*y) of 4 or less RED, and the rest TRANSPARENT.",
 	"button_show_answer": "Show Answer",
 	"button_close_problem": "Exit Problem",
-	"documentation": "Documentation"
+	"documentation": "Documentation",
+	"low_performance_mode": "Low Performance Mode",
+	"auto_run_label": "Auto-run"
 }

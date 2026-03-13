@@ -62,6 +62,7 @@ return 0`);
 
 	$effect(() => {
 		const _code = code; // codeの変更をSvelte 5のリアクティビティに追跡させる
+		if (!uiState.isAutoRunEnabled) return;
 		clearTimeout(debounceTimer);
 		debounceTimer = setTimeout(() => {
 			parseAndRun(_code);
@@ -99,7 +100,7 @@ return 0`);
 		editorError = null;
 
 		// 最小表示時間を確保するためのタイマー
-		const minWait = new Promise((resolve) => setTimeout(resolve, 400));
+		const minWait = new Promise((resolve) => setTimeout(resolve, 200));
 
 		try {
 			await engine.compile(currentCode);
